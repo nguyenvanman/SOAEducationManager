@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        displayFrament(notificationFragment)
+        displayFragment(notificationFragment)
         nav_view.menu.getItem(0).isChecked = true
     }
 
@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_notification -> displayFrament(notificationFragment)
-            R.id.nav_schedule -> displayFrament(scheduleFragment)
-            R.id.nav_score_board -> displayFrament(scoreBoardFragment)
+            R.id.nav_notification -> displayFragment(notificationFragment)
+            R.id.nav_schedule -> displayFragment(scheduleFragment)
+            R.id.nav_score_board -> displayFragment(scoreBoardFragment)
             R.id.nav_logout -> doLogout()
         }
 
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    private fun displayFrament(fragment: Fragment) {
+    private fun displayFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.content_main, fragment)
