@@ -9,10 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.schoolteam.educationmanager.R
 import com.schoolteam.educationmanager.adapters.NewsAdapter
+import com.schoolteam.educationmanager.commons.doRequest
 import com.schoolteam.educationmanager.controllers.NewsController
 import kotlinx.android.synthetic.main.fragment_news.*
+import org.jetbrains.anko.toast
 
 class NewsFragment : Fragment() {
+    private fun showLoading() {
+        pbLoading.visibility = View.VISIBLE
+        coverView.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        pbLoading.visibility = View.GONE
+        coverView.visibility = View.GONE
+    }
+
     private lateinit var adapter: NewsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -23,14 +35,19 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        NewsController.getNews().subscribe({
-            if (it.code() == 200) {
-                adapter = NewsAdapter(context, it.body()!!)
-                rvNews.layoutManager = LinearLayoutManager(context)
-                rvNews.adapter = adapter
-            }
+        context!!.doRequest({ NewsController.getNews() }, {
+            showLoading()
         }, {
-            var x = it
+            adapter = NewsAdapter(context, it)
+            rvNews.layoutManager = LinearLayoutManager(context)
+            rvNews.adapter = adapter
+            hideLoading()
+        }, {
+            context!!.toast(it)
+            hideLoading()
+        }, {
+            context!!.toast(it as CharSequence)
+            hideLoading()
         })
     }
 }

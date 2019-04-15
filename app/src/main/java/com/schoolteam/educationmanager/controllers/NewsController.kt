@@ -2,6 +2,7 @@ package com.schoolteam.educationmanager.controllers
 
 import com.schoolteam.educationmanager.services.ApiClient
 import com.schoolteam.educationmanager.services.interfaces.NewsService
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 object NewsController {
