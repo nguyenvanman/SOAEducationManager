@@ -1,7 +1,6 @@
 package com.schoolteam.educationmanager.activities
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -9,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.schoolteam.educationmanager.R
-import com.schoolteam.educationmanager.fragments.NotificationFragment
+import com.schoolteam.educationmanager.fragments.NewsFragment
 import com.schoolteam.educationmanager.fragments.ScheduleFragment
 import com.schoolteam.educationmanager.fragments.ScoreBoardFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private val notificationFragment = NotificationFragment()
+    private val notificationFragment = NewsFragment()
     private val scheduleFragment = ScheduleFragment()
     private val scoreBoardFragment = ScoreBoardFragment()
 

@@ -2,17 +2,12 @@ package com.schoolteam.educationmanager.activities
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.widget.CircularProgressDrawable
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
-import android.view.View
-import android.widget.ProgressBar
 import com.schoolteam.educationmanager.R
-import com.schoolteam.educationmanager.commons.PreferenceKeyUserId
 import com.schoolteam.educationmanager.commons.saveLoginInformation
 import com.schoolteam.educationmanager.controllers.AuthenticationController
 import com.schoolteam.educationmanager.models.dtos.requests.LoginBody
@@ -55,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     saveLoginInformation(response.body()!!, response.headers().get("Authorization")!!)
                     toast("Login success")
+                    startActivity(Intent(this, MainActivity::class.java))
                     dialog.dismiss()
                 } else {
                     edt_password.text!!.clear()
