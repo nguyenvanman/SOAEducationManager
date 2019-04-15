@@ -2,6 +2,7 @@ package com.schoolteam.educationmanager.adapters.holders
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.bumptech.glide.Glide
 import com.schoolteam.educationmanager.models.dtos.responses.News
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_recyclerview_news.*

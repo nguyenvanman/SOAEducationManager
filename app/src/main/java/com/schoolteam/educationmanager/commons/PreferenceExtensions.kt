@@ -1,11 +1,11 @@
 package com.schoolteam.educationmanager.commons
 
-import android.app.Activity
 import android.content.Context
 import com.schoolteam.educationmanager.models.dtos.responses.LoginResponse
+import org.jetbrains.anko.defaultSharedPreferences
 
-fun Activity.saveLoginInformation(loginResponse: LoginResponse, loginToken: String) {
-    getPreferences(Context.MODE_PRIVATE).edit().apply {
+fun Context.saveLoginInformation(loginResponse: LoginResponse, loginToken: String) {
+    defaultSharedPreferences.edit().apply {
         putInt(PreferenceKeyUserId, loginResponse.user.id!!)
         putString(PreferenceKeyUsername, loginResponse.user.username!!)
         putString(PreferenceKeyUserFirstName, loginResponse.user.firstName!!)
@@ -14,6 +14,26 @@ fun Activity.saveLoginInformation(loginResponse: LoginResponse, loginToken: Stri
         putInt(PreferenceKeyGroupId, loginResponse.group.id!!)
         putString(PreferenceKeyGroupName, loginResponse.group.name)
         putString(PreferenceKeyLoginToken, loginToken)
+        putBoolean(LoginState, true)
         apply()
     }
 }
+
+fun Context.clearLoginInformation() {
+    defaultSharedPreferences.edit().apply {
+        remove(PreferenceKeyUserId)
+        remove(PreferenceKeyUsername)
+        remove(PreferenceKeyUserFirstName)
+        remove(PreferenceKeyUserLastName)
+        remove(PreferenceKeyUserAvatarUrl)
+        remove(PreferenceKeyGroupId)
+        remove(PreferenceKeyGroupName)
+        remove(PreferenceKeyLoginToken)
+        remove(LoginState)
+        apply()
+    }
+}
+
+fun Context.isLogin() = defaultSharedPreferences.getBoolean(LoginState, false)
+
+fun Context.getGroup() = defaultSharedPreferences.getString(PreferenceKeyGroupName, "")

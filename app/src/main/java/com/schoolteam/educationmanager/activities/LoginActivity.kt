@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.schoolteam.educationmanager.R
+import com.schoolteam.educationmanager.commons.Authorization
 import com.schoolteam.educationmanager.commons.saveLoginInformation
 import com.schoolteam.educationmanager.controllers.AuthenticationController
 import com.schoolteam.educationmanager.models.dtos.requests.LoginBody
@@ -20,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        var input = mapOf(edt_username to tilUsername, edt_password to tilPassword)
+        val input = mapOf(edt_username to tilUsername, edt_password to tilPassword)
         btn_login.setOnClickListener {
             var isValidData = true
             input.forEach { pair ->
@@ -37,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
     @SuppressLint("CheckResult")
     private fun doLogin() {
-        var dialog = Dialog(this).apply {
+        val dialog = Dialog(this).apply {
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             setCancelable(false)
             setContentView(R.layout.querying_progress)
@@ -48,18 +49,20 @@ class LoginActivity : AppCompatActivity() {
             .login(LoginBody(edt_username.text.toString(), edt_password.text.toString()))
             .subscribe({response ->
                 if (response.code() == 200) {
-                    saveLoginInformation(response.body()!!, response.headers().get("Authorization")!!)
+                    saveLoginInformation(response.body()!!, response.headers().get(Authorization)!!)
                     toast("Login success")
-                    startActivity(Intent(this, MainActivity::class.java))
                     dialog.dismiss()
+                    finish()
+                    startActivity(Intent(this, MainActivity::class.java))
                 } else {
                     edt_password.text!!.clear()
                     tilPassword.error = "Incorrect username or password!"
                     toast("Login failed")
                     dialog.dismiss()
                 }
-            }, { _ ->
-
+            }, {
+                dialog.dismiss()
+                toast("An error occurred, please try again!")
             })
     }
 }
