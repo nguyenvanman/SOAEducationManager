@@ -8,3 +8,5 @@ const val PreferenceKeyUserAvatarUrl = "avatar_url"
 const val PreferenceKeyGroupId = "group_id"
 const val PreferenceKeyGroupName = "group_name"
 const val PreferenceKeyLoginToken = "login_token"
+
+const val ApiBaseUrl = "http://educationmanagement20190316120819.azurewebsites.net/"

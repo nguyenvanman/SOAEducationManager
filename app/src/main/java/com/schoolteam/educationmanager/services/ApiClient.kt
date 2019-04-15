@@ -1,5 +1,6 @@
 package com.schoolteam.educationmanager.services
 
+import com.schoolteam.educationmanager.commons.ApiBaseUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -8,12 +9,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BaseUrl = "http://educationmanagement20190316120819.azurewebsites.net/"
-
     private var retrofit: Retrofit? = null
 
     private var builder: Retrofit.Builder = Retrofit.Builder()
-        .baseUrl(BaseUrl)
+        .baseUrl(ApiBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
