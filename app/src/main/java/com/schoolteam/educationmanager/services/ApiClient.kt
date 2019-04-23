@@ -1,5 +1,6 @@
 package com.schoolteam.educationmanager.services
 
+import com.google.gson.GsonBuilder
 import com.schoolteam.educationmanager.commons.ApiBaseUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,7 +14,7 @@ object ApiClient {
 
     private var builder: Retrofit.Builder = Retrofit.Builder()
         .baseUrl(ApiBaseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
     private val httpClient = OkHttpClient.Builder()

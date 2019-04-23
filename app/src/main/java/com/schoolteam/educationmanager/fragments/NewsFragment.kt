@@ -11,18 +11,19 @@ import com.schoolteam.educationmanager.R
 import com.schoolteam.educationmanager.adapters.NewsAdapter
 import com.schoolteam.educationmanager.commons.doRequest
 import com.schoolteam.educationmanager.controllers.NewsController
+import com.schoolteam.educationmanager.models.dtos.responses.News
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.jetbrains.anko.toast
 
 class NewsFragment : Fragment() {
     private fun showLoading() {
-        pbLoading.visibility = View.VISIBLE
-        coverView.visibility = View.VISIBLE
+        swipeRefreshLayout.isRefreshing = true
+        adapter.isClickable = false
     }
 
     private fun hideLoading() {
-        pbLoading.visibility = View.GONE
-        coverView.visibility = View.GONE
+        swipeRefreshLayout.isRefreshing = false
+        adapter.isClickable = true
     }
 
     private lateinit var adapter: NewsAdapter
@@ -34,13 +35,26 @@ class NewsFragment : Fragment() {
     @SuppressLint("CheckResult")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rvNews.layoutManager = LinearLayoutManager(context)
+        adapter = NewsAdapter(context)
+        rvNews.adapter = adapter
 
+        queryNews()
+
+        swipeRefreshLayout.setOnRefreshListener {
+            queryNews()
+        }
+    }
+
+    private fun displayNews(list: List<News>) {
+        adapter.list = list
+    }
+
+    private fun queryNews() {
         context!!.doRequest({ NewsController.getNews() }, {
             showLoading()
         }, {
-            adapter = NewsAdapter(context, it)
-            rvNews.layoutManager = LinearLayoutManager(context)
-            rvNews.adapter = adapter
+            displayNews(it)
             hideLoading()
         }, {
             context!!.toast(it)
