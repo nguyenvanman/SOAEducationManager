@@ -9,6 +9,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.schoolteam.educationmanager.R
 import com.schoolteam.educationmanager.commons.Role.Admin
 import com.schoolteam.educationmanager.commons.Role.Mod
@@ -16,13 +19,16 @@ import com.schoolteam.educationmanager.commons.Role.Parent
 import com.schoolteam.educationmanager.commons.Role.Student
 import com.schoolteam.educationmanager.commons.Role.Teacher
 import com.schoolteam.educationmanager.commons.clearLoginInformation
+import com.schoolteam.educationmanager.commons.getCurrentUserName
 import com.schoolteam.educationmanager.commons.getGroup
+import com.schoolteam.educationmanager.commons.getUserAvatarUrl
 import com.schoolteam.educationmanager.fragments.NewsFragment
 import com.schoolteam.educationmanager.fragments.NotificationFragment
 import com.schoolteam.educationmanager.fragments.ScheduleFragment
 import com.schoolteam.educationmanager.fragments.ScoreBoardFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.itemsSequence
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -48,7 +54,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
         checkRole()
+        showUserInfo()
+    }
 
+    private fun showUserInfo() {
+        val headerView = nav_view.getHeaderView(0)
+        Glide.with(this).load(getUserAvatarUrl()).into(headerView.findViewById(R.id.imgAvatarUrl))
+        headerView.findViewById<TextView>(R.id.tvName).text = getCurrentUserName()
     }
 
     private fun checkRole() {

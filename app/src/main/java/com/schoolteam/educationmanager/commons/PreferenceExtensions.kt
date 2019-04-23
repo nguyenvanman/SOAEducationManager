@@ -36,4 +36,9 @@ fun Context.clearLoginInformation() {
 
 fun Context.isLogin() = defaultSharedPreferences.getBoolean(LoginState, false)
 
-fun Context.getGroup() = defaultSharedPreferences.getString(PreferenceKeyGroupName, "")
+fun Context.getGroup() = defaultSharedPreferences.getString(PreferenceKeyGroupName, "")!!
+
+fun Context.getUserAvatarUrl() = defaultSharedPreferences.getString(PreferenceKeyUserAvatarUrl, "")
+
+fun Context.getCurrentUserName() = "${defaultSharedPreferences.getString(PreferenceKeyUserFirstName, "")} " +
+        defaultSharedPreferences.getString(PreferenceKeyUserLastName, "")
