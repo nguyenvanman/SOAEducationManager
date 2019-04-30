@@ -20,9 +20,7 @@ class NewsDetailActivity : AppCompatActivity() {
 
         tv_title.text = intent.getStringExtra("title")
         tv_summary.text = intent.getStringExtra("summary")
-//        tv_content.text = HtmlCompat.fromHtml(intent.getStringExtra("content"), 0)
         Glide.with(this).load(intent.getStringExtra("image_url")).into(img_news)
-
         Markwon.builder(this).usePlugin(ImagesPlugin.create(this)).usePlugin(HtmlPlugin.create()).build()
             .setMarkdown(tv_content, intent.getStringExtra("content"))
     }

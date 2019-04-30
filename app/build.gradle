@@ -54,4 +54,6 @@ dependencies {
     implementation "ru.noties.markwon:core:3.0.0"
     implementation "ru.noties.markwon:html:3.0.0"
     implementation "ru.noties.markwon:image-okhttp:3.0.0"
+
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 }

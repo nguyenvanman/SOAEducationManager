@@ -2,6 +2,7 @@ package com.schoolteam.educationmanager.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -9,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.schoolteam.educationmanager.R
@@ -28,14 +28,15 @@ import com.schoolteam.educationmanager.fragments.ScheduleFragment
 import com.schoolteam.educationmanager.fragments.ScoreBoardFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.itemsSequence
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val notificationFragment = NotificationFragment()
     private val scheduleFragment = ScheduleFragment()
     private val scoreBoardFragment = ScoreBoardFragment()
     private val newsFragment = NewsFragment()
+    private var isDoubleClickedBack = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun showUserInfo() {
         val headerView = nav_view.getHeaderView(0)
-        Glide.with(this).load(getUserAvatarUrl()).into(headerView.findViewById(R.id.imgAvatarUrl))
+        Glide.with(this).load(getUserAvatarUrl()).into(headerView.findViewById(R.id.imgAvatar))
         headerView.findViewById<TextView>(R.id.tvName).text = getCurrentUserName()
     }
 
@@ -104,7 +105,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            if (isDoubleClickedBack) {
+                finish()
+                return
+            }
+
+            isDoubleClickedBack = true;
+            toast(R.string.press_back_to_exit)
+            Handler().postDelayed({ isDoubleClickedBack = false }, 2000)
         }
     }
 
@@ -125,6 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_news -> displayFragment(newsFragment, R.string.drawer_menu_news)
             R.id.nav_notification -> displayFragment(notificationFragment, R.string.drawer_menu_notification)
             R.id.nav_profile -> {
+                startActivity(Intent(this, ProfileActivity::class.java))
             }
             R.id.nav_schedule -> displayFragment(scheduleFragment, R.string.drawer_menu_scheduler)
             R.id.nav_score_board -> displayFragment(scoreBoardFragment, R.string.drawer_menu_score_board)
@@ -146,6 +155,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun doLogout() {
         clearLoginInformation()
         checkRole()
+        showUserInfo()
+        toast(R.string.logout_success)
     }
 
     private fun displayFragment(fragment: Fragment, titleId: Int) {

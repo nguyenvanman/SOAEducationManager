@@ -8,7 +8,7 @@
             android:theme="@style/MyActionBar"
             app:titleTextColor="@color/colorWhite"
             android:id="@+id/toolbar"
-            app:title="News"
+            app:title="@string/drawer_menu_news"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     <android.support.v4.widget.NestedScrollView
