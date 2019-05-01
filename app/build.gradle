@@ -56,4 +56,6 @@ dependencies {
     implementation "ru.noties.markwon:image-okhttp:3.0.0"
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    implementation 'com.github.arcadefire:nice-spinner:1.4'
 }
