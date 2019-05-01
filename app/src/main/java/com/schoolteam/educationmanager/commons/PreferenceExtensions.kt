@@ -38,6 +38,10 @@ fun Context.isLogin() = defaultSharedPreferences.getBoolean(LoginState, false)
 
 fun Context.getGroup() = defaultSharedPreferences.getString(PreferenceKeyGroupName, "")!!
 
+fun Context.getToken() = defaultSharedPreferences.getString(PreferenceKeyLoginToken, "")!!
+
+fun Context.getCurrentUserId() = defaultSharedPreferences.getInt(PreferenceKeyUserId, 0)
+
 fun Context.getUserAvatarUrl() = defaultSharedPreferences.getString(PreferenceKeyUserAvatarUrl, "")
 
 fun Context.getCurrentUserName() = "${defaultSharedPreferences.getString(PreferenceKeyUserFirstName, "")} " +
