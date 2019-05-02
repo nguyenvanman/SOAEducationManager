@@ -18,7 +18,7 @@ class ScheduleAdapter(context: Context) : RecyclerView.Adapter<ScheduleItemViewH
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ScheduleItemViewHolder {
         return ScheduleItemViewHolder(
             LayoutInflater.from(p0.context).inflate(
-                R.layout.recycler_view_schedule_item_content,
+                R.layout.recycler_view_schedule_item,
                 p0,
                 false
             )
@@ -34,7 +34,8 @@ class ScheduleAdapter(context: Context) : RecyclerView.Adapter<ScheduleItemViewH
         }
     }
 
-    private fun handlerData(list: List<ScheduleItem>): MutableList<ScheduleItem> {
+    private fun handlerData(inputList: List<ScheduleItem>): MutableList<ScheduleItem> {
+        val list = inputList.sortedWith(compareBy({ it.lesson }, { it.dayOfWeek }))
         val result = mutableListOf(
             ScheduleItem(id = 1, subjectName = "", teacherName = "", className = "", dayOfWeek = 0, lesson = 0),
             ScheduleItem(id = 1, subjectName = "Thứ 2", teacherName = "", className = "", dayOfWeek = 0, lesson = 0),
@@ -48,44 +49,42 @@ class ScheduleAdapter(context: Context) : RecyclerView.Adapter<ScheduleItemViewH
 
         var curIndex = 8
         for (item in list) {
-            if (curIndex % 7 == 1) {
-                result.add(
-                    ScheduleItem(
-                        id = 1,
-                        subjectName = "${curIndex / 7}",
-                        teacherName = "",
-                        className = "",
-                        dayOfWeek = 0,
-                        lesson = 0
-                    )
-                )
-                curIndex++
-            }
-
-            if (curIndex == 43) {
-                result.add(
-                    ScheduleItem(
-                        id = 1,
-                        subjectName = "Chiều}",
-                        teacherName = "",
-                        className = "",
-                        dayOfWeek = 0,
-                        lesson = 0
-                    )
-                )
-            }
-
             while (curIndex % 7 < item.dayOfWeek!! % 7 || curIndex / 7 < item.lesson!!) {
-                result.add(
-                    ScheduleItem(
-                        id = 1,
-                        subjectName = "",
-                        teacherName = "",
-                        className = "",
-                        dayOfWeek = if (curIndex % 7 == 0) 7 else curIndex % 7,
-                        lesson = curIndex / 7
+                if (curIndex == 43) {
+                    result.add(
+                        ScheduleItem(
+                            id = 1,
+                            subjectName = "Chiều",
+                            teacherName = "",
+                            className = "",
+                            dayOfWeek = 0,
+                            lesson = 0
+                        )
                     )
-                )
+                }
+                if (curIndex % 7 == 1) {
+                    result.add(
+                        ScheduleItem(
+                            id = 1,
+                            subjectName = "${curIndex / 7}",
+                            teacherName = "",
+                            className = "",
+                            dayOfWeek = 0,
+                            lesson = 0
+                        )
+                    )
+                } else {
+                    result.add(
+                        ScheduleItem(
+                            id = 1,
+                            subjectName = "",
+                            teacherName = "",
+                            className = "",
+                            dayOfWeek = if (curIndex % 7 == 0) 7 else curIndex % 7,
+                            lesson = curIndex / 7
+                        )
+                    )
+                }
                 curIndex++
             }
 

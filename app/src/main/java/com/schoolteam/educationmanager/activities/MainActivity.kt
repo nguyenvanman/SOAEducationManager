@@ -22,10 +22,7 @@ import com.schoolteam.educationmanager.commons.clearLoginInformation
 import com.schoolteam.educationmanager.commons.getCurrentUserName
 import com.schoolteam.educationmanager.commons.getGroup
 import com.schoolteam.educationmanager.commons.getUserAvatarUrl
-import com.schoolteam.educationmanager.fragments.NewsFragment
-import com.schoolteam.educationmanager.fragments.NotificationFragment
-import com.schoolteam.educationmanager.fragments.ScheduleFragment
-import com.schoolteam.educationmanager.fragments.ScoreBoardFragment
+import com.schoolteam.educationmanager.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.itemsSequence
@@ -36,6 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val scheduleFragment = ScheduleFragment()
     private val scoreBoardFragment = ScoreBoardFragment()
     private val newsFragment = NewsFragment()
+    private val teachingScheduleFragment = TeachingScheduleFragment()
     private var isDoubleClickedBack = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,8 +136,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 displayFragment(scheduleFragment, R.string.drawer_menu_scheduler)
             }
             R.id.nav_score_board -> displayFragment(scoreBoardFragment, R.string.drawer_menu_score_board)
-            R.id.nav_teaching_scheduler -> {
-            }
+            R.id.nav_teaching_scheduler -> displayFragment(
+                teachingScheduleFragment,
+                R.string.drawer_menu_teaching_scheduler
+            )
             R.id.nav_logout -> doLogout()
             R.id.nav_login -> doLogin()
         }
