@@ -43,8 +43,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener {}
-
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
             R.string.navigation_drawer_open,
@@ -135,7 +133,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_profile -> {
                 startActivity(Intent(this, ProfileActivity::class.java))
             }
-            R.id.nav_schedule -> displayFragment(scheduleFragment, R.string.drawer_menu_scheduler)
+            R.id.nav_schedule -> {
+                scheduleFragment.isStudentMode = getGroup() == "Student"
+                displayFragment(scheduleFragment, R.string.drawer_menu_scheduler)
+            }
             R.id.nav_score_board -> displayFragment(scoreBoardFragment, R.string.drawer_menu_score_board)
             R.id.nav_teaching_scheduler -> {
             }
