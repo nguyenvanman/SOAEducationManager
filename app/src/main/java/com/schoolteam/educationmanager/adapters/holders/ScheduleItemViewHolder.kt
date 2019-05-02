@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.schoolteam.educationmanager.models.dtos.responses.ScheduleItem
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.recycler_view_schedule_item_content.*
+import kotlinx.android.synthetic.main.recycler_view_schedule_item.*
 
 class ScheduleItemViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView!!),
     LayoutContainer {
@@ -28,10 +28,12 @@ class ScheduleItemViewHolder(override val containerView: View?) : RecyclerView.V
         if (position < 7) {
             tvContent.setTextColor(Color.WHITE)
             tvContent.setBackgroundColor(Color.rgb(244, 97, 73))
-        }
-        if (position == 7 || position == 43) {
+        } else if (position == 7 || position == 43) {
             tvContent.setTextColor(Color.WHITE)
             tvContent.setBackgroundColor(Color.rgb(70, 193, 234))
+        } else {
+            tvContent.setTextColor(Color.BLACK)
+            tvContent.setBackgroundColor(Color.argb(12, 50, 19, 68))
         }
     }
 
