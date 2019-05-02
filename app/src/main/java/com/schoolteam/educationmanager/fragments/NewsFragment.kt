@@ -45,6 +45,7 @@ class NewsFragment : Fragment() {
         queryNews()
 
         swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
             queryNews()
         }
     }
