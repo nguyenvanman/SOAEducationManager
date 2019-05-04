@@ -13,15 +13,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.schoolteam.educationmanager.R
+import com.schoolteam.educationmanager.commons.*
 import com.schoolteam.educationmanager.commons.Role.Admin
 import com.schoolteam.educationmanager.commons.Role.Mod
 import com.schoolteam.educationmanager.commons.Role.Parent
 import com.schoolteam.educationmanager.commons.Role.Student
 import com.schoolteam.educationmanager.commons.Role.Teacher
-import com.schoolteam.educationmanager.commons.clearLoginInformation
-import com.schoolteam.educationmanager.commons.getCurrentUserName
-import com.schoolteam.educationmanager.commons.getGroup
-import com.schoolteam.educationmanager.commons.getUserAvatarUrl
 import com.schoolteam.educationmanager.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -114,12 +111,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-        return true
+        return isLogin()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_change_password -> {
+                startActivity(Intent(this, ChangePasswordActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -150,7 +150,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun doLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
-        finish()
     }
 
     private fun doLogout() {
@@ -158,6 +157,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         checkRole()
         showUserInfo()
         toast(R.string.logout_success)
+        invalidateOptionsMenu()
     }
 
     private fun displayFragment(fragment: Fragment, titleId: Int) {

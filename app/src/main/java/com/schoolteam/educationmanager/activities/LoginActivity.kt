@@ -18,6 +18,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
 
         val input = mapOf(edt_username to tilUsername, edt_password to tilPassword)
         btn_login.setOnClickListener {
@@ -57,5 +60,18 @@ class LoginActivity : AppCompatActivity() {
                 dialog.dismiss()
                 toast(R.string.error_occurred)
             })
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (intent.hasExtra("flag")) {
+            startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            finish()
+        }
     }
 }
