@@ -132,10 +132,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(this, ProfileActivity::class.java))
             }
             R.id.nav_schedule -> {
-                scheduleFragment.isStudentMode = getGroup() == "Student"
+                scheduleFragment.isStudentMode = getGroup() == Role.Student
                 displayFragment(scheduleFragment, R.string.drawer_menu_scheduler)
             }
-            R.id.nav_score_board -> displayFragment(scoreBoardFragment, R.string.drawer_menu_score_board)
+            R.id.nav_score_board -> {
+                scoreBoardFragment.isStudentMode = getGroup() == Role.Student
+                displayFragment(scoreBoardFragment, R.string.drawer_menu_score_board)
+            }
             R.id.nav_teaching_scheduler -> displayFragment(
                 teachingScheduleFragment,
                 R.string.drawer_menu_teaching_scheduler

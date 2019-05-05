@@ -21,3 +21,12 @@ object Role {
     const val Admin = "Admin"
     const val Mod = "Mod"
 }
+
+object MarkType {
+    const val FiveMinutes = "Miệng"
+    const val FifteenMinutes = "15 phút"
+    const val OneLesson = "1 tiết"
+    const val Semester = "Học kỳ"
+    const val Average = "TBC"
+
+}
