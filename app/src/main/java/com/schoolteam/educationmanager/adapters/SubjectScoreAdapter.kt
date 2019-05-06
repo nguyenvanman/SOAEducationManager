@@ -19,35 +19,70 @@ class SubjectScoreAdapter : RecyclerView.Adapter<SubjectScoreViewHolder>() {
         }
 
     private fun handlerData(inputList: List<com.schoolteam.educationmanager.models.dtos.responses.SubjectScore>): List<SubjectScore> {
-        val result = mutableListOf<SubjectScore>(
-            SubjectScore("Môn học", "Miệng", "HS1", "HS2", "HK", "TB")
-        )
+        val result = mutableListOf(SubjectScore("Môn học", "HK", "TB"))
         for (item in inputList) {
-            var fiveMinutesScore = ""
-            var fifteenMinutesScore = ""
-            var oneLessonScore = ""
             var semesterScore = ""
             var averageScore = ""
-
+            val list1 = mutableListOf<Float>()
+            val list2 = mutableListOf<Float>()
+            val list3 = mutableListOf<Float>()
             for (i in item.marks!!) {
                 when (i.markType) {
-                    MarkType.FiveMinutes -> fiveMinutesScore += "${i.mark}\t"
-                    MarkType.FifteenMinutes -> fifteenMinutesScore += "${i.mark}\t"
-                    MarkType.OneLesson -> oneLessonScore += "${i.mark}\t"
-                    MarkType.Semester -> semesterScore += "${i.mark}\t"
-                    MarkType.Average -> averageScore += "${i.mark}\t"
+                    MarkType.FiveMinutes -> {
+                        list1.add(i.mark!!)
+                    }
+                    MarkType.FifteenMinutes -> {
+                        list2.add(i.mark!!)
+                    }
+                    MarkType.OneLesson -> {
+                        list3.add(i.mark!!)
+                    }
                 }
+            }
+            if (item.marks.any { it.markType == MarkType.Semester }) {
+                semesterScore = "${item.marks.first { it.markType == MarkType.Semester }.mark}"
+            }
+            if (item.marks.any { it.markType == MarkType.Average }) {
+                averageScore = "${item.marks.first { it.markType == MarkType.Average }.mark}"
             }
             result.add(
                 SubjectScore(
                     item.subjectName,
-                    fiveMinutesScore,
-                    fifteenMinutesScore,
-                    oneLessonScore,
                     semesterScore,
-                    averageScore
+                    averageScore,
+                    list1,
+                    list2,
+                    list3
                 )
             )
+        }
+
+        var max1 = 2
+        var max2 = 2
+        var max3 = 2
+
+        result.forEach {
+            if (it.list1.size > max1) {
+                max1 = it.list1.size
+            }
+            if (it.list2.size > max2) {
+                max2 = it.list2.size
+            }
+            if (it.list3.size > max3) {
+                max3 = it.list3.size
+            }
+        }
+
+        result.forEach {
+            while (it.list1.size < max1) {
+                it.list1.add(-1f)
+            }
+            while (it.list2.size < max2) {
+                it.list2.add(-1f)
+            }
+            while (it.list3.size < max3) {
+                it.list3.add(-1f)
+            }
         }
         return result
     }
@@ -55,7 +90,7 @@ class SubjectScoreAdapter : RecyclerView.Adapter<SubjectScoreViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): SubjectScoreViewHolder {
         return SubjectScoreViewHolder(
             LayoutInflater.from(p0.context).inflate(
-                R.layout.recycle_view_score_item,
+                R.layout.recycler_view_subject_score_item,
                 p0,
                 false
             )
@@ -66,9 +101,7 @@ class SubjectScoreAdapter : RecyclerView.Adapter<SubjectScoreViewHolder>() {
 
     override fun onBindViewHolder(p0: SubjectScoreViewHolder, p1: Int) {
         p0.apply {
-            subjectScore = list[p1]
-            position = p1
+            p0.display(list[p1], p1)
         }
     }
-
 }
