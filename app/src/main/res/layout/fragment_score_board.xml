@@ -34,12 +34,15 @@
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvScoreBoard"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        <HorizontalScrollView android:layout_width="match_parent"
+                              android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvScoreBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
+        </HorizontalScrollView>
         <TextView
                 android:id="@+id/tvNoContent"
                 android:visibility="gone"

@@ -30,8 +30,6 @@ class ScheduleFragment : Fragment() {
 
     var currentSemesterId = 0
 
-    var currentYearId = 0
-
     private lateinit var adapter: ScheduleAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_schedule, container, false)
@@ -86,14 +84,12 @@ class ScheduleFragment : Fragment() {
                 hideLoading()
                 years_spinner.attachDataSource(it)
                 years_spinner.addOnItemClickListener { parent, _, position, _ ->
-                    currentYearId = (parent.getItemAtPosition(position) as SchoolYear).id!!
-                    getAndDisplaySemester()
+                    displaySemester((parent.getItemAtPosition(position) as SchoolYear).semesters!!)
                 }
 
                 val currentIndex = it.indexOfFirst { schoolYear -> schoolYear.isCurrent!! }
                 years_spinner.selectedIndex = if (currentIndex != -1) currentIndex else 0
-                currentYearId = (years_spinner.selectedItem as SchoolYear).id!!
-                getAndDisplaySemester()
+                displaySemester((years_spinner.selectedItem as SchoolYear).semesters!!)
             }, {
                 displayNoContent()
                 hideLoading()
@@ -103,28 +99,17 @@ class ScheduleFragment : Fragment() {
             })
     }
 
-    private fun getAndDisplaySemester() {
-        context!!.doRequest({ SchoolYearController.getSemesters(currentYearId) },
-            { showLoading() },
-            {
-                hideLoading()
-                semesters_spinner.attachDataSource(it)
-                semesters_spinner.addOnItemClickListener { parent, _, position, _ ->
-                    currentSemesterId = (parent!!.getItemAtPosition(position) as Semester).id!!
-                    getAndDisplaySchedule()
-                }
+    private fun displaySemester(semesters: List<Semester>) {
+        semesters_spinner.attachDataSource(semesters)
+        semesters_spinner.addOnItemClickListener { parent, _, position, _ ->
+            currentSemesterId = (parent!!.getItemAtPosition(position) as Semester).id!!
+            getAndDisplaySchedule()
+        }
 
-                val currentIndex = it.indexOfFirst { semester -> semester.isCurrent!! }
-                semesters_spinner.selectedIndex = if (currentIndex != -1) currentIndex else 0
-                currentSemesterId = (semesters_spinner.selectedItem as Semester).id!!
-                getAndDisplaySchedule()
-            }, {
-                displayNoContent()
-                hideLoading()
-            }, {
-                displayNoContent()
-                hideLoading()
-            })
+        val currentIndex = semesters.indexOfFirst { semester -> semester.isCurrent!! }
+        semesters_spinner.selectedIndex = if (currentIndex != -1) currentIndex else 0
+        currentSemesterId = (semesters_spinner.selectedItem as Semester).id!!
+        getAndDisplaySchedule()
     }
 
     private fun getAndDisplaySchedule() {
