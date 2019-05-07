@@ -65,15 +65,14 @@
                         android:textSize="14sp"/>
                 <LinearLayout
                         android:orientation="horizontal"
-                        android:weightSum="2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <Button
                             android:id="@+id/btnViewSchedule"
                             android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="10sp"
                             android:text="@string/button__view_schedule"
                             android:textAllCaps="false"
                             android:layout_height="wrap_content" tools:ignore="ButtonStyle"/>
@@ -81,8 +80,9 @@
                             android:id="@+id/btnViewScore"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:textSize="12sp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:textSize="10sp"
                             android:text="@string/button_view_score_board"
                             android:textAllCaps="false"
                             android:layout_height="wrap_content" tools:ignore="ButtonStyle"/>
