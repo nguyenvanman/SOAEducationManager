@@ -15,6 +15,7 @@
     <string name="drawer_menu_news">Tin tức</string>
     <string name="drawer_menu_login">Đăng nhập</string>
     <string name="drawer_menu_profile">Thông tin cá nhân</string>
+    <string name="drawer_menu_children_info">Thông tin con cái</string>
     <string name="drawer_menu_title_others">Khác</string>
 
     <string name="login_screen_title">XIN CHÀO</string>
@@ -47,4 +48,6 @@
     <string name="not_match">Không khớp mật khẩu</string>
     <string name="wrong_password">Mật khẩu không chính xác</string>
     <string name="change_password_success">Thay đổi mật khẩu thành công</string>
+    <string name="button_view_score_board">Bảng điểm</string>
+    <string name="button__view_schedule">Lịch học</string>
 </resources>

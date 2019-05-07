@@ -55,7 +55,7 @@ class ProfileActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun displayUserInfo(userInfo: com.schoolteam.educationmanager.models.dtos.responses.UserInfo) {
         tvName.text = userInfo.firstName
-        tvFullName.text = "${userInfo.firstName} ${userInfo.lastName}"
+        tvFullName.text = "${userInfo.lastName} ${userInfo.firstName}"
         tvGender.text = getString(if (userInfo.gender!!) R.string.male else R.string.female)
         tvBirthDay.text = SimpleDateFormat("dd/MM/yyyy").format(userInfo.dateOfBirth)
         tvId.text = userInfo.identificationNumber

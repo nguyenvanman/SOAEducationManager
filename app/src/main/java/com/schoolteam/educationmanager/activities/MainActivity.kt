@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val scoreBoardFragment = ScoreBoardFragment()
     private val newsFragment = NewsFragment()
     private val teachingScheduleFragment = TeachingScheduleFragment()
+    private val studentsInfoFragment = ChildrenInfoFragment()
     private var isDoubleClickedBack = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,21 +61,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun checkRole() {
         when (getGroup()) {
             Student -> {
-                hideMenuItems(listOf(5), true)
+                hideMenuItems(listOf(5, 6), true)
             }
             Parent -> {
-                hideMenuItems(listOf(5), true)
+                hideMenuItems(listOf(3, 4, 5), true)
             }
             Teacher -> {
-                hideMenuItems(listOf(3, 4), true)
+                hideMenuItems(listOf(3, 4, 6), true)
             }
             Admin -> {
-                hideMenuItems(listOf(3, 4, 5), true)
+                hideMenuItems(listOf(3, 4, 5, 6), true)
             }
             Mod -> {
-                hideMenuItems(listOf(3, 4, 5), true)
+                hideMenuItems(listOf(3, 4, 5, 6), true)
             }
-            else -> hideMenuItems(listOf(1, 2, 3, 4, 5), false)
+            else -> hideMenuItems(listOf(1, 2, 3, 4, 5, 6), false)
         }
         displayFragment(newsFragment, R.string.drawer_menu_news)
         nav_view.menu.getItem(0).isChecked = true
@@ -90,8 +91,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(item).isVisible = false
         }
 
-        menu.getItem(6).subMenu.getItem(0).isVisible = loginState
-        menu.getItem(6).subMenu.getItem(1).isVisible = !loginState
+        menu.getItem(7).subMenu.getItem(0).isVisible = loginState
+        menu.getItem(7).subMenu.getItem(1).isVisible = !loginState
     }
 
     override fun onBackPressed() {
@@ -143,6 +144,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 teachingScheduleFragment,
                 R.string.drawer_menu_teaching_scheduler
             )
+
+            R.id.nav_students_info -> {
+                displayFragment(studentsInfoFragment, R.string.drawer_menu_children_info)
+            }
             R.id.nav_logout -> doLogout()
             R.id.nav_login -> doLogin()
         }

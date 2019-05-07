@@ -44,5 +44,5 @@ fun Context.getCurrentUserId() = defaultSharedPreferences.getInt(PreferenceKeyUs
 
 fun Context.getUserAvatarUrl() = defaultSharedPreferences.getString(PreferenceKeyUserAvatarUrl, "")
 
-fun Context.getCurrentUserName() = "${defaultSharedPreferences.getString(PreferenceKeyUserFirstName, "")} " +
-        defaultSharedPreferences.getString(PreferenceKeyUserLastName, "")
+fun Context.getCurrentUserName() = "${defaultSharedPreferences.getString(PreferenceKeyUserLastName, "")} " +
+        defaultSharedPreferences.getString(PreferenceKeyUserFirstName, "")
