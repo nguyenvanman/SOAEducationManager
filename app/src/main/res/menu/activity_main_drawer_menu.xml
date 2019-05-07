@@ -28,6 +28,10 @@
                 android:id="@+id/nav_teaching_scheduler"
                 android:icon="@drawable/ic_menu_schedule"
                 android:title="@string/drawer_menu_teaching_scheduler"/>
+        <item
+                android:id="@+id/nav_students_info"
+                android:icon="@drawable/ic_menu_children_info"
+                android:title="@string/drawer_menu_children_info"/>
     </group>
 
     <item android:title="@string/drawer_menu_title_others">

@@ -132,8 +132,10 @@ class ScoreBoardFragment : Fragment() {
         context!!.doRequest({ ScoreController.getScore(context!!, currentUserId, currentSemesterId) },
             { showLoading() },
             {
+                hideLoading()
                 if (!it.isEmpty()) {
-                    hideLoading()
+                    rvScoreBoard.visibility = View.VISIBLE
+                    tvNoContent.visibility = View.GONE
                     adapter.inputList = it
                 } else {
                     displayNoContent()
