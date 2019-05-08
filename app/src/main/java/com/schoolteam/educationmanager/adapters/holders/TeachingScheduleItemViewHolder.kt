@@ -1,5 +1,6 @@
 package com.schoolteam.educationmanager.adapters.holders
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -41,8 +42,14 @@ class TeachingScheduleItemViewHolder(override val containerView: View?) : Recycl
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun display(teachingScheduleItem: TeachingScheduleItem) {
-        tvClass.text = teachingScheduleItem.className
-        tvRoom.text = teachingScheduleItem.room
+        if (teachingScheduleItem.dayOfWeek in 2..8 && teachingScheduleItem.lesson in 1..11) {
+            tvClass.text =
+                if (teachingScheduleItem.className.isNullOrEmpty()) "" else "Lớp ${teachingScheduleItem.className}"
+            tvRoom.text = if (teachingScheduleItem.room.isNullOrEmpty()) "" else "Phòng ${teachingScheduleItem.room}"
+        } else if (teachingScheduleItem.dayOfWeek == 0 && teachingScheduleItem.lesson == 0) {
+            tvClass.text = "${teachingScheduleItem.className}"
+        }
     }
 }

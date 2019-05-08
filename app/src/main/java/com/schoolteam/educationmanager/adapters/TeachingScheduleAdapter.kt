@@ -28,8 +28,16 @@ class TeachingScheduleAdapter : RecyclerView.Adapter<TeachingScheduleItemViewHol
 
         val list = inputList.sortedWith(compareBy({ it.lesson }, { it.dayOfWeek }))
 
+        var currentDayOfWeek = 0
+        var currentLesson = 0
         var curIndex = 8
         for (item in list) {
+            if (currentDayOfWeek == item.dayOfWeek && currentLesson == item.lesson) {
+                continue
+            } else {
+                currentDayOfWeek = item.dayOfWeek!!
+                currentLesson = item.lesson!!
+            }
             while (curIndex % 7 < item.dayOfWeek!! % 7 || curIndex / 7 < item.lesson!!) {
                 if (curIndex == 43) {
                     result.add(
