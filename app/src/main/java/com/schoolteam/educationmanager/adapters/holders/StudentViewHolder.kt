@@ -24,7 +24,7 @@ class StudentViewHolder(override val containerView: View?) : RecyclerView.ViewHo
     @SuppressLint("SetTextI18n")
     private fun display(student: Student) {
         Glide.with(itemView.context).load(student.user!!.avatarUrl).into(imgAvatar)
-        tvFullName.text = "${student.user.lastName} ${student.user.firstName}"
+        tvFullName.text = "${student.user.firstName} ${student.user.lastName}"
         tvClass.text = "Lớp ${student.className!!.className}"
         tvGender.text = if (student.user.gender!!) "Giới tính: Nam" else "Giới tính: Nữ"
         tvAddress.text = "Địa chỉ: ${student.user.address}"
