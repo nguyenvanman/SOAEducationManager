@@ -74,7 +74,8 @@ class TeachingScheduleFragment : Fragment() {
     }
 
     private fun getAndDisplaySchoolYears() {
-        context!!.doRequest({ SchoolYearController.getSchoolYears() },
+        context!!.doRequest(
+            { SchoolYearController.getSchoolYears(context!!) },
             { showLoading() },
             {
                 hideLoading()
