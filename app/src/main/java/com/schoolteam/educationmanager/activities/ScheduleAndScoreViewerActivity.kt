@@ -92,7 +92,8 @@ class ScheduleAndScoreViewerActivity : AppCompatActivity() {
     }
 
     private fun getAndDisplaySchoolYears() {
-        doRequest({ SchoolYearController.getSchoolYears() },
+        doRequest(
+            { SchoolYearController.getSchoolYears(this) },
             { showLoading() },
             {
                 hideLoading()
